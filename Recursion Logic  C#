@@ -1,0 +1,41 @@
+Id
+Comment
+ParentId
+
+public class comment{
+public int CommentId{get;set;}
+public string Comment {get;set;}
+public int ParentId{get;set;}
+public  List<Comment> Comments{get;set;}
+
+}
+
+
+
+var commentsList=comments.GetAll(x=>x.ParentId==null).ToList();
+
+
+
+foreach(var item in commentsList){
+
+list= select new Comment(){
+commnetId=item.CommentId,
+Comment=x.Comment,
+ParentId=x.ParentId,
+Comments=GetChildComments(ref list, item.commentId)
+
+}
+
+public static List<Comment> GetChildComments(list,parentId){
+
+return list.Where(x=>x.ParentId==parentId).select(m=>new comment(){
+commnetId=item.CommentId,
+Comment=x.Comment,
+ParentId=x.ParentId,
+Comments=GetChildComments(ref list, item.commentId)
+}
+
+
+}
+
+}
