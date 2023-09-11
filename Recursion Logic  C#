@@ -38,6 +38,26 @@ Comments=GetChildComments(ref list, item.commentId)
 
 }
 
+
+@echo off
+setlocal enabledelayedexpansion
+
+set "exifToolPath=C:\compressed\ExifTool\exifTool.exe"
+set "rootFolder=C:\compressed\images"
+
+for /r "%rootFolder%" %%F in (*.jpg *.jpeg *.png) do (
+    for /F "delims=" %%W in ('%exiftoolPath% -T -ImageWidth -S %%F') do (
+ if %%W geq 1280 (
+        echo File: %%F Width: %%W
+ffmpeg -i input.jpg -vf scale=320:240 output_320x240.png
+)
+    )
+)
+
+endlocal
+pause
+
+
 }
 
 https://code-maze.com/download-files-dot-net-core-angular/
